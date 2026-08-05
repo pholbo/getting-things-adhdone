@@ -22,7 +22,7 @@ Mostly flat, with one deliberate exception: project-scoped notes get their own f
 
 A note only belongs in `📁 Projects/<name>` if it's genuinely scoped to that project's work - don't move general reference notes (company notes, vendor notes, musings) in just because they're topically related.
 
-Full mechanics of how note creation and templates are wired together live in `docs/vault-setup.md` - read that before changing template or dashboard behavior; it also documents known failure modes (stale duplicate frontmatter blocks, macOS smart quotes breaking Templater scripts, tag substring collisions, etc.) rather than repeating them here.
+Full mechanics of how note creation and templates are wired together live in `docs/vault-setup.md` - read that before changing template or dashboard behaviour; it also documents known failure modes (stale duplicate frontmatter blocks, macOS smart quotes breaking Templater scripts, tag substring collisions, etc.) rather than repeating them here.
 
 ## Plugins in use
 
