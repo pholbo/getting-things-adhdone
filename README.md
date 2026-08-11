@@ -29,18 +29,19 @@ asking you to keep it organised yourself.
   Archive, Templates, Daily notes, etc.), for starting a vault from scratch.
   If you already have a vault, skip it and map the conventions onto your
   existing folders instead - see that folder's own README for both paths.
-- **`templates/`** - Templater templates for daily notes, 1:1 meeting notes,
-  and generic/company notes.
-- **`skills/`** - three Claude Code skills that do the actual body-doubling
+- **`templates/`** - Templater templates for daily notes and generic/company
+  notes.
+- **`skills/`** - two Claude Code skills that do the actual body-doubling
   work:
-  - `start-the-day` - opens today's Daily note, pulls in what's due, carried
-    over, or blocked from across the vault, and asks you to pick 1-3 things
-    to focus on.
-  - `end-the-day` - scans what you touched today for loose ends (untagged
-    tasks, bare bullets, unresolved questions) and walks through fixes one
-    at a time - never silently edits anything.
-  - `end-task` - a lighter per-task checkpoint for closing out a single chat
-    thread before starting the next one.
+  - `start-the-day` - opens today's Daily note, surfaces tasks that may have
+    gone stale, and helps you prep for today's meetings. Works whether you
+    track tasks in the vault itself or in a separate task manager - see the
+    skill's own notes on that choice, plus an example Things3 integration
+    under `skills/start-the-day/things3-export/`.
+  - `end-the-day` - scans what you touched today (or just this chat thread,
+    for a lighter per-task checkpoint) for loose ends - action items that
+    aren't actually tracked anywhere, unresolved questions, duplicates - and
+    walks through fixes one at a time. Never silently edits anything.
 - **`docs/vault-setup.md`** - the mechanics doc: how templates, folders, and
   the 1:1 tagging system are wired together, plus known failure modes
   (macOS smart quotes breaking Templater scripts, stale frontmatter blocks,
@@ -52,8 +53,10 @@ asking you to keep it organised yourself.
 ## Requirements
 
 - [Obsidian](https://obsidian.md) with the plugins listed in
-  `docs/obsidian-plugin-setup.md` - Templater, Tasks, and Dataview are
-  required, a few others are recommended but optional.
+  `docs/obsidian-plugin-setup.md` - Templater and Dataview are required. The
+  `Tasks` plugin is only needed if you're tracking tasks inside the vault
+  rather than in a separate task manager (Things3, Todoist, Reminders.app,
+  etc.) - see `start-the-day`'s notes on that choice.
 - [Claude Code](https://claude.com/claude-code) pointed at your vault
   directory.
 
@@ -81,9 +84,9 @@ asking you to keep it organised yourself.
 - **Manual over automated, by default.** Cron jobs and push notifications
   are easy to build and easy to start ignoring. On-demand skills you
   trigger yourself stay legible - you always know why something happened.
-- **Never silently edit.** Both end-of-day skills report what they'd
-  change and ask before touching anything, one decision at a time rather
-  than a wall of text.
+- **Never silently edit.** `end-the-day` reports what it'd change and asks
+  before touching anything, one decision at a time rather than a wall of
+  text.
 - **Flat over nested.** Tags, folders, and structure stay as shallow as
   they can, because a system with a learning curve is a system that stops
   getting maintained.
