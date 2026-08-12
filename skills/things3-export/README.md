@@ -1,11 +1,12 @@
 # Things3 export (example)
 
-Example scripts for the "your task manager" integration described in
-`start-the-day`'s `SKILL.md`, for Things3 on macOS specifically. If you use a
-different task manager, these aren't drop-in - swap in whatever your tool's
-API/export/CLI gives you instead, keeping the same shape: a plain-text export
-of open items with creation dates (and tags, for the meeting-prep step), read
-only, never written back to.
+Example scripts for the "your task manager" integration described across the
+`start-the-day`, `surface-stale-tasks`, `prep-meeting`, and `update-tasks`
+skills, for Things3 on macOS specifically. If you use a different task
+manager, these aren't drop-in - swap in whatever your tool's API/export/CLI
+gives you instead, keeping the same shape: a plain-text export of open items
+with creation dates (and tags, for the meeting-prep step), read only, never
+written back to.
 
 - `things_export.applescript` - every open to-do across all lists, tab-
   separated: group, name, due date, tags, creation date.
