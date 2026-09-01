@@ -87,8 +87,10 @@ asking you to keep it organised yourself.
   (macOS smart quotes breaking Templater scripts, stale frontmatter blocks,
   tag substring collisions).
 - **`docs/obsidian-plugin-setup.md`** - which Obsidian community plugins this
-  depends on and the settings that actually matter (most of it doesn't work
-  without the Tasks plugin's global filter set correctly, for one).
+  depends on and the settings that actually matter (Templater's template
+  folder mapping, for one - the Tasks plugin and its global filter are only
+  relevant if you're tracking tasks inside the vault rather than a separate
+  task manager, see below).
 
 ## Requirements
 

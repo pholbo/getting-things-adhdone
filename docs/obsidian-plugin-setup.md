@@ -1,10 +1,17 @@
 # Obsidian plugin setup
 
 The templates and skills in this repo assume a specific set of community
-plugins, and a couple of them need non-default settings to work at all - the
-`start-the-day`/`end-the-day` skills will silently find nothing if the Tasks
-global filter isn't set, for example. This doc covers what to install and
-which settings actually matter.
+plugins, and a couple of them need non-default settings to work at all. This
+doc covers what to install and which settings actually matter.
+
+**Note on Tasks:** the `start-the-day`/`end-the-day` skills don't require the
+Tasks plugin at all if you track tasks in a separate app (Things3, Todoist,
+Reminders.app, etc.) rather than inside the vault - that's the author's own
+setup, see `start-the-day`'s "Why a separate task manager at all" and
+`CLAUDE.md`'s "Task tracking: two options". Only install and configure Tasks
+if you're deliberately going vault-native instead - if you do, its global
+filter setting genuinely is load-bearing (the day-skills will silently find
+nothing tracked if it isn't set), which is why it's covered in detail below.
 
 Install via **Settings → Community plugins → Browse**, search each name,
 install, then enable it.
@@ -25,9 +32,18 @@ notes.
   which breaks the JavaScript. Turn it off in System Settings → Keyboard →
   Text Input → Edit → uncheck "Use smart quotes and dashes".
 
+**Dataview** (`dataview`)
+Powers any `dataview`/`dataviewjs` query blocks in dashboard notes,
+including the brag-list dashboard `suggest-brag-items` feeds. No required
+settings beyond enabling it.
+
+## Conditional - only if tracking tasks in the vault
+
 **Tasks** (`obsidian-tasks-plugin`)
-Every checkbox convention in `CLAUDE.md` and both day-skills depends on this
-plugin's query blocks and date-emoji parsing.
+Skip this entirely if you're using a separate task manager (see the note at
+the top of this doc). If you're going vault-native, every checkbox
+convention in `CLAUDE.md`'s "Task tracking: two options" (Option B) and both
+day-skills depends on this plugin's query blocks and date-emoji parsing.
 - Settings → Tasks → **Global filter**: set to `#task`. Without this, the
   Tasks plugin treats every checkbox in the vault as tracked, which is not
   what the skills expect - they rely on `#task` being the thing that marks a
@@ -36,10 +52,6 @@ plugin's query blocks and date-emoji parsing.
   to the plugin - a `tasks` query filtering `scheduled today` won't match a
   line that only has a 📅 due date. Match the emoji on the task line to the
   field name in the query.
-
-**Dataview** (`dataview`)
-Powers any `dataview`/`dataviewjs` query blocks in dashboard notes. No
-required settings beyond enabling it.
 
 ## Recommended
 
@@ -75,10 +87,14 @@ cosmetic.
 Once installed and configured, confirm:
 1. A new note created in your Daily notes folder auto-applies the Daily
    template (proves Templater folder templates are wired up).
-2. A line like `- [ ] test #task 📅 2026-01-01` shows up in a
-   `tasks` query block filtering `due today` when the date matches (proves
-   the Tasks global filter is set correctly).
+2. **If you're using the Tasks plugin**: a line like
+   `- [ ] test #task 📅 2026-01-01` shows up in a `tasks` query block
+   filtering `due today` when the date matches (proves the Tasks global
+   filter is set correctly). **If you're using an external task manager**:
+   confirm you can actually pull an export from it (see
+   `skills/things3-export/` for the Things3 example) - that export is what
+   `end-the-day`/`start-the-day` read instead.
 
 If either fails, re-check the settings above before assuming something in
-`templates/` or `skills/` is broken - a misconfigured plugin is the more
-common cause.
+`templates/` or `skills/` is broken - a misconfigured plugin (or a broken
+task-manager export) is the more common cause.
