@@ -37,24 +37,46 @@ asking you to keep it organised yourself.
   sequence) - never both, and never a skill that does several unrelated jobs
   in one go. New skills added later should keep to this split rather than
   growing into a do-everything script. Currently:
-  - `start-the-day` - orchestrator only: opens today's Daily note, then runs
-    `surface-stale-tasks`, then runs `prep-meeting` once per meeting you name.
-    Doesn't do any of that work itself.
+  - `start-the-day` - orchestrator only: optionally checks in about your task
+    inbox, opens today's Daily note, then runs `surface-stale-tasks`, then
+    either runs `pick-meetings-to-prep` (if you've wired up a calendar
+    integration) or asks you to name today's meetings directly, running
+    `prep-meeting` once per meeting selected. Doesn't do any of that work
+    itself.
   - `surface-stale-tasks` - flags to-dos that may have gone stale (7+ days in
     your Today list, 21+ days anywhere else). Standalone - run it any time
     you want a staleness check without the rest of the morning ritual.
+  - `pick-meetings-to-prep` - reads today's calendar and lets you multiselect
+    which meetings are worth prepping, then hands each one to `prep-meeting`.
+    The example implementation is macOS-specific (`icalBuddy` against a
+    synced Google Calendar) - explicitly one example, not a hard requirement;
+    see the skill's own notes for the manual-naming fallback if you don't
+    want a calendar integration.
   - `prep-meeting` - given a meeting name, finds or creates a dated meeting
     note and pulls in matching tasks by tag. Standalone - run it for any
     meeting, any time of day.
   - `update-tasks` - refreshes a human-readable snapshot note of your task
     manager's open to-dos, if you keep one. Standalone.
-  - All four work whether you track tasks in the vault itself or in a
+  - `link-task` - on request only, creates a two-way link between a specific
+    task and a specific note: a deep link to the task added to the note, and
+    a link back to the note appended to the task. The one deliberate,
+    narrow exception to the "read-only against your task manager" rule the
+    other skills here follow - see the skill's own guardrails.
+  - All of the above work whether you track tasks in the vault itself or in a
     separate task manager - see `start-the-day`'s notes on that choice, plus
     an example Things3 integration under `skills/things3-export/`.
   - `end-the-day` - scans what you touched today (or just this chat thread,
     for a lighter per-task checkpoint) for loose ends - action items that
     aren't actually tracked anywhere, unresolved questions, duplicates - and
-    walks through fixes one at a time. Never silently edits anything.
+    walks through fixes one at a time. Never silently edits anything. Also
+    runs `suggest-brag-items` over the same files, and finishes with a
+    verification pass that re-reads everything it claims to have changed.
+  - `suggest-brag-items` - looks back over what you wrote today for things
+    worth remembering you did, and drafts a short, linked bullet for each
+    one to add to a running "brag list." Added because it's easy to end a
+    day only remembering what's still unfinished - this exists to counter
+    that, not to replace your own judgment about what counts as worth
+    keeping.
 - **`docs/vault-setup.md`** - the mechanics doc: how templates, folders, and
   the 1:1 tagging system are wired together, plus known failure modes
   (macOS smart quotes breaking Templater scripts, stale frontmatter blocks,

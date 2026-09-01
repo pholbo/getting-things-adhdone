@@ -8,6 +8,10 @@ gives you instead, keeping the same shape: a plain-text export of open items
 with creation dates (and tags, for the meeting-prep step), read only, never
 written back to.
 
+(`link-task` is the one deliberate exception to "never written back to" - it
+appends to a task's notes field, but only on explicit per-task request. See
+that skill's own guardrails.)
+
 - `things_export.applescript` - every open to-do across all lists, tab-
   separated: group, name, due date, tags, creation date.
 - `things_today.applescript` - just the Things3 "Today" list: name and

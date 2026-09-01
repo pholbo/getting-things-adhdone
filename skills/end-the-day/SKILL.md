@@ -8,8 +8,10 @@ description: >
   suggests sharper wording where an action item reads vague. Reports
   findings, then works through fixes one at a time via structured Yes/No
   questions; never auto-edits, never marks anything done in your task
-  tracker. Trigger: /end-the-day, or wrapping up your day / closing out a
-  task / thread.
+  tracker. Also runs suggest-brag-items over the same file set to flag
+  untagged achievements, and finishes with a verification pass over
+  anything created or modified in the session. Trigger: /end-the-day, or
+  wrapping up your day / closing out a task / thread.
 ---
 
 # End the Day
@@ -110,6 +112,20 @@ this chat.
    block to respond to all at once. Work through findings this way rather
    than batching them into one message. No silent edits, no silent changes
    to task state.
+
+8. **Run the `suggest-brag-items` skill** over the same file set gathered
+   in step 1, so it isn't re-scanning the vault separately. Present its
+   output as-is - this is a separate concern from loose-end detection
+   (achievements worth keeping, not action items that fell through the
+   cracks), so keep it as its own pass rather than folding it into step 7's
+   findings.
+
+9. **Verify before reporting the day closed.** List every file actually
+   created or modified this session, re-read each one, and quote the
+   specific lines that prove the change landed. Flag anything claimed as
+   done earlier in the session but not actually reflected in the file. This
+   is the last step, after loose ends are resolved - don't skip it even on
+   a quiet session with few edits.
 
 ## Out of scope
 

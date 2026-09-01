@@ -1,11 +1,12 @@
 ---
 name: start-the-day
 description: >
-  Morning ADHD-focus ritual. Opens (or creates) today's Daily note, then runs
-  the surface-stale-tasks skill, then asks whether you want to prep for any
-  meetings today (you check your own diary and name them - there's no
-  calendar read access), running the prep-meeting skill once per meeting you
-  name. Trigger: /start-the-day or "start the day" / "kick off my morning".
+  Morning ADHD-focus ritual. Optionally checks in about sorting your task
+  inbox first (skippable), opens (or creates) today's Daily note, then runs
+  the surface-stale-tasks skill, then runs pick-meetings-to-prep (or asks
+  you to name today's meetings directly, if you're not using a calendar
+  integration), running the prep-meeting skill once per meeting selected.
+  Trigger: /start-the-day or "start the day" / "kick off my morning".
 ---
 
 # Start the Day
@@ -64,7 +65,17 @@ with creation/due dates and tags.
 
 ## Process
 
-1. **Find or create today's Daily note.**
+1. **If you keep a task inbox, ask whether to sort it now, skip it, or
+   it's already done.** Offer all three - you may have already sorted it
+   before invoking this skill. This is just the question - don't pull or
+   list inbox items yourself, that part stays entirely manual in whatever
+   app owns your task inbox. If the user wants to sort it now, wait for
+   them to say they're done before moving on. Don't push back on a skip -
+   the point is this stays optional so it doesn't turn into a chore that
+   gets avoided. Skip this step entirely if you don't use a separate task
+   inbox concept.
+
+2. **Find or create today's Daily note.**
    - Path: `📝 Notes/🗓️ Daily notes/YYYY-MM-DD.md` (today's date).
    - If it exists, read it - don't clobber anything already written under
      `## Notes` or elsewhere.
@@ -77,20 +88,24 @@ with creation/due dates and tags.
      the source of truth for what's on today's plate, and mirroring it here
      is duplicated maintenance for no benefit.
 
-2. **Run the `surface-stale-tasks` skill.** Present its output as-is - don't
+3. **Run the `surface-stale-tasks` skill.** Present its output as-is - don't
    re-derive or second-guess it here.
 
-3. **Ask if there's anything on today's diary worth prepping for.** There's
-   no calendar read access - look at your own diary and name the meeting
-   (and who it's with, if relevant). Don't try to guess or infer the
-   schedule. Work through meetings one at a time, conversationally - don't
-   ask for the whole day's agenda up front.
-   - For each meeting named, run the `prep-meeting` skill. That skill
-     handles finding/creating the meeting note, pulling matching tasks by
-     tag, and linking it into today's Daily note - this step is just the
-     loop that invokes it once per named meeting.
+4. **Get today's meetings, then prep the ones worth prepping.** Two ways to
+   do this, depending on your setup:
+   - **If you have a calendar integration** (see `pick-meetings-to-prep` -
+     the author's version reads a synced Google Calendar via `icalBuddy` on
+     macOS), run that skill. It reads today's events, lets the user
+     multiselect which to prep, and runs `prep-meeting` once per selection.
+   - **If you don't** - there's no calendar read access in your setup, or
+     you'd rather not wire one up - ask the user directly instead: look at
+     your own diary and name the meeting (and who it's with, if relevant).
+     Don't try to guess or infer the schedule. Work through meetings one at
+     a time, conversationally - don't ask for the whole day's agenda up
+     front. For each meeting named, run the `prep-meeting` skill the same
+     way `pick-meetings-to-prep` would.
 
-4. Don't mark anything done in your task manager, don't invent new tasks,
+5. Don't mark anything done in your task manager, don't invent new tasks,
    don't reorganise unrelated parts of the note. This is a read-and-surface
    ritual, not a cleanup or prioritisation step - any actual changes to task
    state are the user's to make themselves, in the tool that owns that state.
