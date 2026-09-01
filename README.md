@@ -77,6 +77,11 @@ asking you to keep it organised yourself.
     day only remembering what's still unfinished - this exists to counter
     that, not to replace your own judgment about what counts as worth
     keeping.
+  - `search-mail` - on request only, searches and reads back email via
+    AppleScript against Apple Mail rather than an OAuth mail connector.
+    Same category of workaround as `pick-meetings-to-prep`'s calendar read -
+    local app access instead of a connector, useful if a connector isn't
+    available or vetted for the account in question. Read-only, standalone.
 - **`docs/vault-setup.md`** - the mechanics doc: how templates, folders, and
   the 1:1 tagging system are wired together, plus known failure modes
   (macOS smart quotes breaking Templater scripts, stale frontmatter blocks,
