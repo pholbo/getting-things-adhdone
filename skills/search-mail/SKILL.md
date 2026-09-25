@@ -3,8 +3,8 @@ name: search-mail
 description: >
   Searches your email on request via AppleScript against Apple Mail - by
   subject, sender, or date - and reads back matching messages. Local and
-  read-only, the same trick pick-meetings-to-prep uses for Calendar.app, so
-  it doesn't need an OAuth mail connector. Never sends, deletes, moves, or
+  read-only, reading the local Mail app rather than going through an OAuth
+  mail connector. Never sends, deletes, moves, or
   marks anything read. Standalone, on-request only. Trigger: /search-mail,
   or asking to find/check/look up an email.
 ---
@@ -19,9 +19,7 @@ that kind of connector isn't available to you, isn't vetted for your
 organisation's data yet, or you'd simply rather not grant it broad account
 access for something you only need occasionally. This works entirely
 through Mail.app, which already has your account(s) configured locally, so
-it's local file/app access rather than a connector - same category of
-workaround as `pick-meetings-to-prep`'s use of `icalBuddy` against
-Calendar.app instead of a Google Calendar connector.
+it's local file/app access rather than a connector.
 
 On-request only, like `link-task` - this is not a standing daily scan, and
 doesn't get called from `start-the-day` or `end-the-day` unless you

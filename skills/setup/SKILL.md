@@ -57,22 +57,30 @@ question.
 Ask: in Obsidian itself, or a separate task manager?
 
 - **In Obsidian** (Tasks plugin + Dataview queries): tasks live in the vault
-  as `#task` checkboxes. Copy only `skills/end-the-day/` into
-  `.claude/skills/` - skip `start-the-day`, `surface-stale-tasks`,
-  `prep-meeting`, and `update-tasks` entirely, since those are all built
-  around reading from an external task manager and don't apply here. Point
+  as `#task` checkboxes. Copy `skills/end-the-day/`, `skills/end-task/` and
+  `skills/suggest-brag-items/` into `.claude/skills/` - skip
+  `start-the-day`, `surface-stale-tasks`, `pick-meetings-to-prep`,
+  `prep-meeting`, `update-tasks` and `log-completed-tasks` entirely, since
+  those are all built around reading from an external task manager and
+  don't apply here (`end-the-day` skips its completed-tasks steps without
+  one). Point
   the user at `docs/obsidian-plugin-setup.md` for the Tasks plugin's global
   filter setting - most of this silently does nothing if that's misconfigured.
 - **A separate task manager:** ask which one, offering common options
   (Things3, Todoist, TickTick, Apple Reminders) plus a free-text "other."
-  Copy `skills/end-the-day/`, `skills/start-the-day/`,
-  `skills/surface-stale-tasks/`, `skills/prep-meeting/`,
-  `skills/update-tasks/`, and `skills/things3-export/` into
+  Copy `skills/end-the-day/`, `skills/end-task/`, `skills/start-the-day/`,
+  `skills/surface-stale-tasks/`, `skills/pick-meetings-to-prep/`,
+  `skills/prep-meeting/`, `skills/update-tasks/`,
+  `skills/log-completed-tasks/`, `skills/suggest-brag-items/`, and
+  `skills/things3-export/` into
   `.claude/skills/` (and `.claude/skills/` sibling location for the export
   folder, matching the source layout).
   - **If Things3:** the `things3-export/` AppleScripts work as-is (macOS
     only). Mention the AppleScript permission prompt they'll hit the first
-    time a script runs.
+    time a script runs, and the `excludedAreas` setting in
+    `things_completed_today.applescript`. Also offer the optional
+    on-request extras, `link-task` (two-way task/note links) and
+    `search-mail` (reads Apple Mail), without installing them by default.
   - **If anything else** (Todoist, TickTick, Reminders, other): the
     AppleScript export scripts are Things3-specific and won't work for
     them. Say this plainly rather than pretending it's plug-and-play. Point

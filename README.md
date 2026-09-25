@@ -37,21 +37,20 @@ asking you to keep it organised yourself.
   sequence) - never both, and never a skill that does several unrelated jobs
   in one go. New skills added later should keep to this split rather than
   growing into a do-everything script. Currently:
-  - `start-the-day` - orchestrator only: optionally checks in about your task
-    inbox, opens today's Daily note, then runs `surface-stale-tasks`, then
-    either runs `pick-meetings-to-prep` (if you've wired up a calendar
-    integration) or asks you to name today's meetings directly, running
-    `prep-meeting` once per meeting selected. Doesn't do any of that work
+  - `start-the-day` - orchestrator only: names the chat for the day (Claude
+    desktop app only), optionally checks in about your task inbox and any
+    other capture inboxes, opens today's Daily note, asks whether you want a
+    stale-task review (default no) and runs `surface-stale-tasks` only on a
+    yes, then runs `pick-meetings-to-prep`. Doesn't do any of that work
     itself.
   - `surface-stale-tasks` - flags to-dos that may have gone stale (7+ days in
-    your Today list, 21+ days anywhere else). Standalone - run it any time
-    you want a staleness check without the rest of the morning ritual.
-  - `pick-meetings-to-prep` - reads today's calendar and lets you multiselect
-    which meetings are worth prepping, then hands each one to `prep-meeting`.
-    The example implementation is macOS-specific (`icalBuddy` against a
-    synced Google Calendar) - explicitly one example, not a hard requirement;
-    see the skill's own notes for the manual-naming fallback if you don't
-    want a calendar integration.
+    your Today list, 21+ days anywhere else), summarised rather than dumped
+    as a list. Standalone - run it any time you want a staleness check
+    without the rest of the morning ritual.
+  - `pick-meetings-to-prep` - asks which of today's meetings you want to
+    prep for, then hands each one to `prep-meeting`. No calendar access
+    needed by default; the skill's own notes cover an optional automated
+    calendar read on macOS, and why the author dropped it.
   - `prep-meeting` - given a meeting name, finds or creates a dated meeting
     note and pulls in matching tasks by tag. Standalone - run it for any
     meeting, any time of day.
@@ -59,18 +58,27 @@ asking you to keep it organised yourself.
     manager's open to-dos, if you keep one. Standalone.
   - `link-task` - on request only, creates a two-way link between a specific
     task and a specific note: a deep link to the task added to the note, and
-    a link back to the note appended to the task. The one deliberate,
-    narrow exception to the "read-only against your task manager" rule the
-    other skills here follow - see the skill's own guardrails.
+    a link back to the note appended to the task. One of two deliberate,
+    narrow exceptions to the "read-only against your task manager" rule the
+    other skills here follow (the other is `end-the-day` adding an inbox item
+    on a per-item yes) - see the skill's own guardrails.
   - All of the above work whether you track tasks in the vault itself or in a
     separate task manager - see `start-the-day`'s notes on that choice, plus
     an example Things3 integration under `skills/things3-export/`.
-  - `end-the-day` - scans what you touched today (or just this chat thread,
-    for a lighter per-task checkpoint) for loose ends - action items that
-    aren't actually tracked anywhere, unresolved questions, duplicates - and
-    walks through fixes one at a time. Never silently edits anything. Also
-    runs `suggest-brag-items` over the same files, and finishes with a
+  - `end-the-day` - once a day, scans what you touched today for loose ends
+    - action items that aren't actually tracked anywhere, unresolved
+    questions, duplicates - and walks through fixes one at a time, offering
+    to add untracked actions to your task inbox on a per-item yes. Never
+    silently edits anything. Also runs `log-completed-tasks`, catches real
+    work on "sparse" days that never touched the task manager, runs
+    `suggest-brag-items` over the same files, and finishes with a
     verification pass that re-reads everything it claims to have changed.
+  - `end-task` - the lighter per-chat counterpart: before you close a task
+    chat, checks that Claude's own memory files reflect what the chat just
+    did, so the next chat starts from accurate context. Standalone.
+  - `log-completed-tasks` - writes what your task manager shows as completed
+    today (or on a given date) into the Daily note, as a plain factual list.
+    Standalone, or run from `end-the-day`.
   - `suggest-brag-items` - looks back over what you wrote today for things
     worth remembering you did, and drafts a short, linked bullet for each
     one to add to a running "brag list." Added because it's easy to end a
@@ -78,8 +86,7 @@ asking you to keep it organised yourself.
     that, not to replace your own judgment about what counts as worth
     keeping.
   - `search-mail` - on request only, searches and reads back email via
-    AppleScript against Apple Mail rather than an OAuth mail connector.
-    Same category of workaround as `pick-meetings-to-prep`'s calendar read -
+    AppleScript against Apple Mail rather than an OAuth mail connector -
     local app access instead of a connector, useful if a connector isn't
     available or vetted for the account in question. Read-only, standalone.
 - **`docs/vault-setup.md`** - the mechanics doc: how templates, folders, and
@@ -101,6 +108,31 @@ asking you to keep it organised yourself.
   etc.) - see `start-the-day`'s notes on that choice.
 - [Claude Code](https://claude.com/claude-code) pointed at your vault
   directory.
+
+## Terminal or desktop app?
+
+Claude Code runs in a terminal or in the Claude desktop app's Code tab. The
+author started in the terminal and moved to the desktop app, which suits
+this workflow better:
+
+- Formatted replies are easier to read than terminal text
+- The sidebar makes it easy to keep one "daily" chat open all day and fork
+  bigger tasks into their own chats
+- Claude can rename chats and file them into sidebar groups, which
+  `start-the-day` and `end-the-day` use to name each day's chat and file it
+  away
+- Claude can read what you ran in the app's Terminal panel
+
+Two caveats:
+
+- Chats started in the terminal don't appear in the app's sidebar
+  automatically. To bring one across, run `/desktop` in the terminal, which
+  opens the chat in the desktop app and closes the terminal session, or type
+  `/resume` in the app to pick from your terminal chats. (`/desktop` needs
+  macOS or x64 Windows and a Claude subscription sign-in, not an API key.)
+- Commands that open interactive terminal dialogs (such as `/permissions` or
+  `/config`) aren't available in the app, so run those from a terminal
+  session
 
 ## Setting it up
 

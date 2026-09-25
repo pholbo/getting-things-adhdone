@@ -1,11 +1,13 @@
 ---
 name: start-the-day
 description: >
-  Morning ADHD-focus ritual. Optionally checks in about sorting your task
-  inbox first (skippable), opens (or creates) today's Daily note, then runs
-  the surface-stale-tasks skill, then runs pick-meetings-to-prep (or asks
-  you to name today's meetings directly, if you're not using a calendar
-  integration), running the prep-meeting skill once per meeting selected.
+  Morning ADHD-focus ritual. Renames the chat to "Daily DD-MM-YYYY"
+  (Claude desktop app only, skipped elsewhere), optionally checks in about
+  sorting your task inbox and any other capture inboxes (skippable), opens
+  (or creates) today's Daily note, asks whether you want a stale-task review
+  at all (default no) and only runs surface-stale-tasks on a yes, then runs
+  pick-meetings-to-prep, which asks which meetings to prep and runs
+  prep-meeting once per meeting.
   Trigger: /start-the-day or "start the day" / "kick off my morning".
 ---
 
@@ -46,9 +48,12 @@ things: a real task manager gives you due-date notifications, recurring
 tasks, and capture from anywhere (phone, watch, car) without needing Obsidian
 open, none of which a markdown checkbox in a note does well. The tradeoff is
 one more system to keep in sync - these skills make that sync asymmetric and
-cheap: they only ever *read* from the task manager and *never write back*, so
-there's one direction of truth and no risk of Claude quietly diverging from
-what you actually asked your task manager to track.
+cheap: they almost only *read* from the task manager. The one exception is
+that `end-the-day` can add a new item to your task inbox when you say yes to
+that specific item - it never organises, schedules, tags or completes
+anything, so the inbox stays the single place new tasks get sorted, and
+there's no risk of Claude quietly diverging from what you actually asked
+your task manager to track.
 
 **This part is intentionally pluggable.** `surface-stale-tasks` and
 `prep-meeting` describe the *pattern* (export/query task data, apply
@@ -65,17 +70,31 @@ with creation/due dates and tags.
 
 ## Process
 
-1. **If you keep a task inbox, ask whether to sort it now, skip it, or
+1. **Rename this chat** (optional, Claude desktop app only). Do this first,
+   before any question. Rename the chat to `Daily DD-MM-YYYY` (today's date)
+   using the desktop app's session tools - the app may ask the user to
+   approve the new title. If those tools aren't available (e.g. a terminal
+   session), skip silently. Don't file it into a sidebar group here -
+   `end-the-day` does that at day's end, so today's chat stays easy to reach
+   in the main list all day. This supports a pattern of one long-running
+   "daily" chat for ad hoc questions, with bigger tasks forked into their own
+   chats.
+
+2. **If you keep a task inbox, ask whether to sort it now, skip it, or
    it's already done.** Offer all three - you may have already sorted it
-   before invoking this skill. This is just the question - don't pull or
-   list inbox items yourself, that part stays entirely manual in whatever
-   app owns your task inbox. If the user wants to sort it now, wait for
+   before invoking this skill. If you capture tasks anywhere that isn't your
+   task manager's inbox (e.g. voice captures on a phone your task manager
+   has no app for - the author dictates to Gemini in the car, which saves to
+   Google Tasks), include a reminder in the question to clear those into
+   the inbox as part of the same sort. This is just the question - don't
+   pull or list inbox items yourself, that part stays entirely manual in
+   whatever app owns your task inbox. If the user wants to sort it now, wait for
    them to say they're done before moving on. Don't push back on a skip -
    the point is this stays optional so it doesn't turn into a chore that
    gets avoided. Skip this step entirely if you don't use a separate task
    inbox concept.
 
-2. **Find or create today's Daily note.**
+3. **Find or create today's Daily note.**
    - Path: `📝 Notes/🗓️ Daily notes/YYYY-MM-DD.md` (today's date).
    - If it exists, read it - don't clobber anything already written under
      `## Notes` or elsewhere.
@@ -88,24 +107,23 @@ with creation/due dates and tags.
      the source of truth for what's on today's plate, and mirroring it here
      is duplicated maintenance for no benefit.
 
-3. **Run the `surface-stale-tasks` skill.** Present its output as-is - don't
-   re-derive or second-guess it here.
+4. **Ask whether the user wants to go over stale tasks at all - default is
+   no.** A plain yes/no before anything runs. Many mornings the answer is no,
+   because the user reviews this themselves while going through their task
+   manager, so don't run the scan speculatively "just to see". Only on a yes,
+   **run the `surface-stale-tasks` skill** and present its output as-is -
+   then stop and wait for the user's response before moving on. Never
+   present the stale list and continue to meetings in the same message; that
+   turns the question into decoration. On a no, go straight to the next step
+   without comment. (The author added this gate after the always-on version
+   never once led to an action.)
 
-4. **Get today's meetings, then prep the ones worth prepping.** Two ways to
-   do this, depending on your setup:
-   - **If you have a calendar integration** (see `pick-meetings-to-prep` -
-     the author's version reads a synced Google Calendar via `icalBuddy` on
-     macOS), run that skill. It reads today's events, lets the user
-     multiselect which to prep, and runs `prep-meeting` once per selection.
-   - **If you don't** - there's no calendar read access in your setup, or
-     you'd rather not wire one up - ask the user directly instead: look at
-     your own diary and name the meeting (and who it's with, if relevant).
-     Don't try to guess or infer the schedule. Work through meetings one at
-     a time, conversationally - don't ask for the whole day's agenda up
-     front. For each meeting named, run the `prep-meeting` skill the same
-     way `pick-meetings-to-prep` would.
+5. **Run the `pick-meetings-to-prep` skill.** It asks which meetings the
+   user wants to prep for and runs `prep-meeting` once per meeting named -
+   present its output as-is. (It can optionally read a calendar instead -
+   see that skill.)
 
-5. Don't mark anything done in your task manager, don't invent new tasks,
+6. Don't mark anything done in your task manager, don't invent new tasks,
    don't reorganise unrelated parts of the note. This is a read-and-surface
    ritual, not a cleanup or prioritisation step - any actual changes to task
    state are the user's to make themselves, in the tool that owns that state.
@@ -118,5 +136,6 @@ with creation/due dates and tags.
   are a separate system and don't need to match that convention.
 - No em-dashes in anything written into notes - hyphens instead (edit to
   taste).
-- Never offer to edit your task manager on the user's behalf, even as a
-  convenience - these skills only ever read from it.
+- This skill never writes to your task manager. Elsewhere, the only write is
+  `end-the-day` adding a new inbox item on a per-item yes - never organising,
+  completing or rescheduling anything.

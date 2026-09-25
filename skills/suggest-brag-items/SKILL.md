@@ -69,12 +69,15 @@ a step by `/end-the-day`.
    actually impressive about it. End with a `[[wikilink]]` back to the
    source note, then `#brag`.
 
-4. **Present each draft one at a time**, asking whether to add this bullet
-   to today's Daily note or skip it - reviewing one at a time beats a single
-   wall-of-text list. Show the drafted bullet text and which note it's
-   drawn from.
+4. **Present all drafts together as one checkbox list** (e.g. via
+   AskUserQuestion with multiSelect, one option per candidate, plus a final
+   "None of these" option), so the user ticks the ones they want in a single
+   pass rather than answering yes/no per item. Show each drafted bullet and
+   which note it's drawn from. Include "None of these" even when there's only
+   one candidate, so declining doesn't mean ticking a real draft just to
+   submit.
 
-5. **Only add the bullet on a yes.** Append it under the Daily note's notes
+5. **Only add the bullets that were ticked.** Append each under the Daily note's notes
    section (or wherever today's other `#brag` bullets already live), as its
    own new line. Never edit the source note - the achievement gets a fresh
    short-form line in the Daily note, the original stays untouched.
@@ -89,8 +92,8 @@ a step by `/end-the-day`.
 
 ## Guardrails
 
-- Never add a bullet without the user confirming that specific draft first -
-  no batch-adding, no inferring consent from one yes to the next item.
+- Never add a bullet the user didn't tick - don't infer consent for anything
+  left unticked.
 - Never edit the source note the achievement was found in - only the Daily
   note gets a new line.
 - Never touch the aggregating "Brag list" note itself, if you have one - it

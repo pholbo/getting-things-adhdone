@@ -8,14 +8,20 @@ gives you instead, keeping the same shape: a plain-text export of open items
 with creation dates (and tags, for the meeting-prep step), read only, never
 written back to.
 
-(`link-task` is the one deliberate exception to "never written back to" - it
-appends to a task's notes field, but only on explicit per-task request. See
-that skill's own guardrails.)
+Two deliberate exceptions to "never written back to", both only on an
+explicit per-item yes: `link-task` appends to a task's notes field, and
+`end-the-day` can add a new to-do to the Things3 Inbox (title and note only).
+See those skills' own guardrails.
 
 - `things_export.applescript` - every open to-do across all lists, tab-
   separated: group, name, due date, tags, creation date.
 - `things_today.applescript` - just the Things3 "Today" list: name and
   creation date.
+- `things_completed_today.applescript` - to-dos completed on a given date
+  (default today; pass `YYYY-MM-DD` for another), tab-separated: group,
+  name, tags, completion date. Used by `log-completed-tasks`. Edit the
+  `excludedAreas` setting at the top to leave out areas such as personal
+  life.
 - `build_things_note.py` - turns the export's raw tab-separated output into a
   markdown note grouped by project/area, for pasting into the vault as a
   reference snapshot (optional - `start-the-day` can also just read the raw

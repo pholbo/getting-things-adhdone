@@ -42,8 +42,19 @@ invoked as a step by `/start-the-day`.
 3. From the full list, flag anything **21+ days old**, excluding items
    already flagged from the Today list, so nothing is surfaced twice.
 4. Present these conversationally as "these look like they might have gone
-   stale" - not a demand. Ask if the user wants to move any forward, drop
-   them, or leave them as-is.
+   stale" - not a demand. Two rules on how:
+   - **Don't dump the full list as prose.** The 21+ day list can easily run
+     to dozens of items, and a wall of text gets skimmed past. Summarise it
+     by area or project with counts, and name only the handful that
+     genuinely stand out (a deadline about to bite, anything over a year
+     old).
+   - **Then stop and wait for an answer.** Ask whether the user wants to
+     move any forward, drop them, or leave them as-is, and end the turn
+     there. Never ask and continue to the next step in the same message -
+     when called from `start-the-day`, the caller must not move on to
+     meetings until the user has actually replied. If they want to work
+     through specific items, do that one at a time as structured questions
+     rather than as another list.
 5. If nothing is stale by these thresholds, just say so briefly rather than
    forcing the conversation.
 6. Adjust the 7/21-day thresholds to taste - they're a starting point, not a
