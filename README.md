@@ -108,6 +108,7 @@ asking you to keep it organised yourself.
   etc.) - see `start-the-day`'s notes on that choice.
 - An LLM such as [Claude Code](https://claude.com/claude-code) or [ChatGPT Codex](https://chatgpt.com/codex/) pointed at your vault
   directory. Local models could also be used.
+- The author uses Claude Code, so many of the instructions and advice are written with that in mind.
 
 ## Terminal or desktop app?
 
