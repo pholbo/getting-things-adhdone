@@ -107,7 +107,7 @@ asking you to keep it organised yourself.
   rather than in a separate task manager (Things3, Todoist, Reminders.app,
   etc.) - see `start-the-day`'s notes on that choice.
 - An LLM such as [Claude Code](https://claude.com/claude-code) or [ChatGPT Codex](https://chatgpt.com/codex/) pointed at your vault
-  directory. 
+  directory. Local models could also be used.
 
 ## Terminal or desktop app?
 
