@@ -106,8 +106,8 @@ asking you to keep it organised yourself.
   `Tasks` plugin is only needed if you're tracking tasks inside the vault
   rather than in a separate task manager (Things3, Todoist, Reminders.app,
   etc.) - see `start-the-day`'s notes on that choice.
-- [Claude Code](https://claude.com/claude-code) pointed at your vault
-  directory.
+- An LLM such as [Claude Code](https://claude.com/claude-code) or [ChatGPT Codex](https://chatgpt.com/codex/) pointed at your vault
+  directory. 
 
 ## Terminal or desktop app?
 
