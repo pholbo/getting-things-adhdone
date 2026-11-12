@@ -12,9 +12,8 @@ description: >
   the Daily note, auto-detects a "sparse" day (few completions, several other
   notes edited) and if so offers real work that never touched the task
   tracker, runs suggest-brag-items over the same file set, verifies
-  everything changed this session, and finally files the chat in a "Dailies"
-  sidebar group (Claude desktop app only). Trigger: /end-the-day, or wrapping
-  up your day.
+  everything changed this session, and finally archives the chat (Claude
+  desktop app only). Trigger: /end-the-day, or wrapping up your day.
 ---
 
 # End the Day
@@ -157,15 +156,17 @@ triggered by closing an individual task chat - that's `end-task`.
     done earlier in the session but not actually reflected in the file.
     Don't skip it even on a quiet session with few edits.
 
-11. **File the daily chat** (optional, Claude desktop app only). The very
-    last thing, after verification. Move this chat into a sidebar group
-    named `Dailies` using the desktop app's session tools, looking the group
-    up by name each time rather than hardcoding its id. If no such group
-    exists, say so and stop - don't create one. If the tools aren't
-    available (e.g. a terminal session), skip silently. Done here rather than
-    in `start-the-day` (which names the chat) so today's chat stays in the
-    main list while it's in use, and the Dailies group only holds finished
-    days and can stay collapsed.
+11. **Archive the daily chat** (optional, Claude desktop app only). The very
+    last thing, after verification. Archive this chat using the desktop
+    app's session tools. Archiving ends the conversation, so the day's
+    report must already be written, and the app may ask the user to approve
+    it. It's reversible - archived chats can be reopened from the Archived
+    list, and the "Daily DD-MM-YYYY" name set by `start-the-day` makes them
+    easy to find. If the tools aren't available (e.g. a terminal session),
+    skip silently. Done here rather than in `start-the-day` so today's chat
+    stays in the main list while it's in use. (The author tried filing
+    finished dailies into a sidebar group instead, but dropped it - one more
+    thing to manage that added nothing over archiving.)
 
 ## Out of scope
 

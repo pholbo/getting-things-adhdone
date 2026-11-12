@@ -74,25 +74,27 @@ with creation/due dates and tags.
    before any question. Rename the chat to `Daily DD-MM-YYYY` (today's date)
    using the desktop app's session tools - the app may ask the user to
    approve the new title. If those tools aren't available (e.g. a terminal
-   session), skip silently. Don't file it into a sidebar group here -
-   `end-the-day` does that at day's end, so today's chat stays easy to reach
+   session), skip silently. Don't archive it here - `end-the-day` does that
+   at day's end, so today's chat stays easy to reach
    in the main list all day. This supports a pattern of one long-running
    "daily" chat for ad hoc questions, with bigger tasks forked into their own
    chats.
 
-2. **If you keep a task inbox, ask whether to sort it now, skip it, or
-   it's already done.** Offer all three - you may have already sorted it
-   before invoking this skill. If you capture tasks anywhere that isn't your
+2. **If you keep a task inbox, ask whether it's already sorted or you're
+   skipping it today.** Offer just those two options. There's deliberately
+   no "sort it now" option: if it isn't sorted, the user just goes and does
+   it in the task manager, rather than announcing it to Claude and having
+   the ritual sit waiting for them. (The author dropped a three-option
+   version for this reason.) If you capture tasks anywhere that isn't your
    task manager's inbox (e.g. voice captures on a phone your task manager
    has no app for - the author dictates to Gemini in the car, which saves to
    Google Tasks), include a reminder in the question to clear those into
-   the inbox as part of the same sort. This is just the question - don't
-   pull or list inbox items yourself, that part stays entirely manual in
-   whatever app owns your task inbox. If the user wants to sort it now, wait for
-   them to say they're done before moving on. Don't push back on a skip -
-   the point is this stays optional so it doesn't turn into a chore that
-   gets avoided. Skip this step entirely if you don't use a separate task
-   inbox concept.
+   the inbox as part of the sort. This is just the question - don't pull or
+   list inbox items yourself, that part stays entirely manual in whatever
+   app owns your task inbox. Whichever option is picked, carry on straight
+   away. Don't push back on a skip - the point is this stays optional so it
+   doesn't turn into a chore that gets avoided. Skip this step entirely if
+   you don't use a separate task inbox concept.
 
 3. **Find or create today's Daily note.**
    - Path: `📝 Notes/🗓️ Daily notes/YYYY-MM-DD.md` (today's date).

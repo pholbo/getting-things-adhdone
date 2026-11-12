@@ -47,17 +47,12 @@ notes/memory are current before you do.
    - Anything this session's new information supersedes or contradicts.
    - Duplicate entries that should collapse into one once updated.
 
-3. **Cross-check against anything already tagged in today's Daily note**
-   for the session's topic (e.g. a digest tag you use for weekly project
-   updates), purely to confirm memory and the note agree on what happened -
-   don't add or edit tags here, that's a vault edit and out of scope.
-
-4. **Update the affected memory files directly.** Memory writes don't need
+3. **Update the affected memory files directly.** Memory writes don't need
    approval the way vault edits do - but say plainly what was written,
    corrected, or removed, so the user can see the diff rather than just
    being told it's handled.
 
-5. **Report a short close-out summary**: what was checked, what (if
+4. **Report a short close-out summary**: what was checked, what (if
    anything) changed, and confirmation it's safe to close. If nothing needed
    updating, say so briefly rather than padding it out.
 
@@ -68,8 +63,6 @@ notes/memory are current before you do.
 - The task manager - no reads or writes here at all.
 - Brag-list suggestions - stays `suggest-brag-items`'s job, run from
   `end-the-day`.
-- Adding or editing digest tags - this skill only checks memory against
-  what's already tagged.
 
 ## Notes on conventions
 

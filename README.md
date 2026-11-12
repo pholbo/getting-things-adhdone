@@ -89,6 +89,12 @@ asking you to keep it organised yourself.
     AppleScript against Apple Mail rather than an OAuth mail connector -
     local app access instead of a connector, useful if a connector isn't
     available or vetted for the account in question. Read-only, standalone.
+  - `save-transcript` - whenever you share a meeting transcript (e.g. from
+    Gemini or Otter), quietly saves the transcript text as its own note next
+    to the meeting, alongside whatever else you asked for. Strips
+    auto-summaries and clutter, fixes only misheard names, and never saves
+    audio - so later drafts can work from what was actually said rather than
+    a summary.
 - **`docs/vault-setup.md`** - the mechanics doc: how templates, folders, and
   the 1:1 tagging system are wired together, plus known failure modes
   (macOS smart quotes breaking Templater scripts, stale frontmatter blocks,
@@ -119,9 +125,8 @@ this workflow better:
 - Formatted replies are easier to read than terminal text
 - The sidebar makes it easy to keep one "daily" chat open all day and fork
   bigger tasks into their own chats
-- Claude can rename chats and file them into sidebar groups, which
-  `start-the-day` and `end-the-day` use to name each day's chat and file it
-  away
+- Claude can rename and archive chats, which `start-the-day` and
+  `end-the-day` use to name each day's chat and archive it at day's end
 - Claude can read what you ran in the app's Terminal panel
 
 Two caveats:
