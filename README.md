@@ -5,11 +5,16 @@ memory won't cooperate. Less "productivity system," more a **body double** -
 a working partner that sits with you, holds the list you can't hold in your
 head, and nudges you toward starting rather than organising forever.
 
-![Obsidian graph view of the author's work vault growing over time, with note titles hidden. Larger dots are notes with more links to other notes.](docs/vault-graph.gif)
+![Obsidian graph view of the author's work vault growing over time, with note titles hidden. Larger dots are notes with more links to other notes. Red-orange dots are daily notes, yellow are external work notes, blue are project notes, grey are everything else.](docs/vault-graph.gif)
 
 *The author's work vault in Obsidian's graph view, growing from the first
 notes to today. Each dot is a note and each line a link between two notes -
 the bigger the dot, the more links that note has. Titles hidden.*
+
+<img src="docs/graph-key/daily.svg" width="12" height="12" alt="Red-orange dot"> Daily notes &nbsp;
+<img src="docs/graph-key/external.svg" width="12" height="12" alt="Yellow dot"> External work &nbsp;
+<img src="docs/graph-key/projects.svg" width="12" height="12" alt="Blue dot"> Projects (live and archived) &nbsp;
+<img src="docs/graph-key/other.svg" width="12" height="12" alt="Grey dot"> Everything else
 
 ## Why this exists
 
