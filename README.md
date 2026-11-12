@@ -5,10 +5,11 @@ memory won't cooperate. Less "productivity system," more a **body double** -
 a working partner that sits with you, holds the list you can't hold in your
 head, and nudges you toward starting rather than organising forever.
 
-![Obsidian graph view of the author's work vault growing over time, with note titles hidden](docs/vault-graph.gif)
+![Obsidian graph view of the author's work vault growing over time, with note titles hidden. Larger dots are notes with more links to other notes.](docs/vault-graph.gif)
 
 *The author's work vault in Obsidian's graph view, growing from the first
-notes to today. Each dot is a note and each line a link - titles hidden.*
+notes to today. Each dot is a note and each line a link between two notes -
+the bigger the dot, the more links that note has. Titles hidden.*
 
 ## Why this exists
 
